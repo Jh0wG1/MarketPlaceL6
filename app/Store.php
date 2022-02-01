@@ -11,14 +11,14 @@ class Store extends Model
      * @var array
      */
     protected $fillable= [
-        'name','description','phone','mobal_phone','slug'
+        'name','description','phone','mobile_phone','slug'
     ];
     
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function product(){
+    public function products(){
         return $this->hasMany(Product::class);
     }
 
