@@ -50,9 +50,12 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+        
         $store = \App\Store::find($data['store']);
         $store->products()->create($data);
+        
+        flash("Produto Criado com Sucesso!!!")->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -66,7 +69,6 @@ class ProductsController extends Controller
         
     }
 
-    
     //   Show the form for editing the specified resource.
      
     //   @param int  $product
@@ -88,7 +90,14 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $product)
     {
-        //
+        $data = $request->all();
+
+        $product = $this->product->find($product);
+        $product->update($data);
+
+        flash("Produto Atualizado com Sucesso!!!")->success();
+        return redirect()->route('admin.products.index');
+
     }
 
     /**
@@ -99,6 +108,11 @@ class ProductsController extends Controller
      */
     public function destroy($product)
     {
-        return $product;
+
+        $product = $this->product->find($product);
+        $product->delete();
+
+        flash("Produto Deletado com Sucesso!!!")->success();
+        return redirect()->route('admin.products.index');
     }
 }
